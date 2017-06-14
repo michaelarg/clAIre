@@ -1,13 +1,18 @@
 # clAIre
 Every car needs a name. The name Claire also contains AI. I thought it worked well.
 
+![170301163620-roborace-barcelonas-media-daniel-simon-02-large-super-169](https://user-images.githubusercontent.com/15652565/27119802-9e932a5e-5124-11e7-87b4-cb7915b15468.jpg)
+
+Like this car pictured but much smaller and much prettier.
+
 I will refer to the car as Claire now.
 
 The steps I will take are roughly:
 
-- Connect Raspberry pi up to existing rc car or make diy rc car. This will involve connecting raspberry pi to motor shield then to the DC motors. Use little examplar script to test that it all works.
+- Connect Raspberry pi up to existing rc car or make diy rc car. (I ended up purchasing a $15 car from Kmart).
+This will involve connecting raspberry pi to motor shield then to the DC motors. Use little examplar script to test that it all works.
 
-> Update: I will use both the Raspberry Pi and the Arduino together. I have more experience in using the Arudino with sensors, motors and other add-ons but my C++ skills are a bit rusty hopefully unlike my Python skills that have been in use lately. Also I don't have any network capabilities on more Arduino, and the Arduino doesn't have any USB port unlike the Raspberry Pi that has 6. The network functionality and processing: sending data, receiving and processing data will be done on the Raspberry Pi, whereas the Arduino will be used for data generation and implementation of sensors, motors. Also I want to use my Logitech USB webcam with this project so the USB ports will be handy.
+> Update: I will use both the Raspberry Pi and the Arduino together. I have more experience in using the Arudino with sensors, motors and other add-ons but my C++ skills are a bit rusty hopefully unlike my Python skills that have been in use lately. Also I don't have any network capabilities on more Arduino, and the Arduino doesn't have any USB port unlike the Raspberry Pi that has 6. The network functionality and processing: sending data, receiving and processing data will be done on the Raspberry Pi, whereas the Arduino will be used for data generation and implementation of sensors, motors. Also I want to use my Logitech USB webcam with this project so the USB ports will be handy. Also I get to use C++ and Python in this project.
 
 - Add range sensor and the functionality to stop the car before colliding with an object.
 
