@@ -29,5 +29,6 @@ This will involve connecting raspberry pi to motor shield then to the DC motors.
 - TensorFlow and video footage.
 - Get the car to follow a path.
 - Learn it to stop for a traffic light.
+- Adapt accelerometer to measure G Force of collision. Ultimately understand the accelerometer and G Force better.
 
 [linkname](https://youtubevideourl)
