@@ -18,7 +18,11 @@ This will involve connecting raspberry pi to motor shield then to the DC motors.
 
 >Update: I had a simpler version of this hooked up that turned on an LED when an object was less than 10 cms away from it.
 
+
+
 - Add functionality so that it can turn.
+
+>There is a dc motor in the car that already gives it turning functionality. All that needs to be done here is to hook this up to the LN298 motor shield and code it correctly. It is actually really beautiful to see this work. There is a cog connected to the dc motor which is in a horizontal position, spinning clockwise and anti clockwise that is connected to a horizontal cog which is then further connected to the steering road.
 
 - Attach camera to the car and figure out the plumbing needed to be able to use the footage.
 > Need to investigate this. This would make it more a project in computer vision than one in AI/Deep Learning.
@@ -26,3 +30,4 @@ This will involve connecting raspberry pi to motor shield then to the DC motors.
 - Get the car to follow a path.
 - Learn it to stop for a traffic light.
 
+[linkname](https://youtubevideourl)
