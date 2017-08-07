@@ -6,12 +6,13 @@
 
 // motor one - rear wheels forward reverse
 int enA = 10;
-int in1 = 9;
-int in2 = 8;
+int in1 = 9; //high actually goes in reverse
+int in2 = 8; //high makes it go forward, reverse these to go in reverse
 // motor two - left right
+
 int enB = 5;
-int in3 = 7;
-int in4 = 6;
+int in3 = 7; //HIGH left 
+int in4 = 6; // HIGH right
 
 
 void setup() {
@@ -45,19 +46,32 @@ void loop() {
   digitalWrite(in2, HIGH);
   analogWrite(enA, 200); //when you are using anything other than the digital high voltage, so this goes to the pwm pins
 
+  
+
   if (distance < 4) {  // This is where the LED On/Off happens
 
-    digitalWrite(in1, HIGH); //digital high voltage - think of this as a constant
-    digitalWrite(in2, LOW);
-    analogWrite(enA, 255); //when you are using anything other than the digital high voltage, so this goes to the pwm pins
+    digitalWrite(in2, HIGH); //digital high voltage - think of this as a constant
+    digitalWrite(in1, LOW);
+    analogWrite(enA, 0); //when you are using anything other than the digital high voltage, so this goes to the pwm pins
     
     digitalWrite(led,HIGH); // When the Red condition is met, the Green LED should turn off
     digitalWrite(led2,LOW);
+    
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    analogWrite(enB, 255);
+    
   }
 
  else {
     digitalWrite(led,LOW);
     digitalWrite(led2,HIGH);
+    analogWrite(enA, 0);
+    
+    digitalWrite(in4, HIGH);
+    digitalWrite(in3, LOW);
+    analogWrite(enB, 255);
+    
   }
 
   //Printing details to screen
