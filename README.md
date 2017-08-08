@@ -31,4 +31,4 @@ This will involve connecting raspberry pi to motor shield then to the DC motors.
 - Learn it to stop for a traffic light.
 - Adapt accelerometer to measure G Force of collision. Ultimately understand the accelerometer and G Force better.
 
-#Update: ClAIre may need a bigger body!
+## Update: ClAIre may need a bigger body!
