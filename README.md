@@ -35,3 +35,5 @@ This will involve connecting raspberry pi to motor shield then to the DC motors.
 ### √ arduino stop distance led dc controller script works nicely
 
 ### Update 6/9/17: Finding new flatmate, work, GOT and Rick and Morty have taken over my nights and I've been a bit slack with ClAIre. Did buy a bigger body so all the components should fit on now. Experimenting with webcams and raspberry pi. Found the video really slow and currently researching ways around this bottleneck before I can get stuck into some cool computer vision.
+
+😀
