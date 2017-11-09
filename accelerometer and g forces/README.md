@@ -1,4 +1,4 @@
-##Accelerometer and G Forces
+## Accelerometer and G Forces
 
 The area that is to be built on here is when a collision happens. 
 We use the accelerometer to measure G Forces before and during the collision. 
