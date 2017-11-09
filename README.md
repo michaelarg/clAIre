@@ -1,6 +1,8 @@
 # clAIre
 Every car needs a name. The name Claire also contains AI. I thought it worked well.
 
+https://trello.com/b/9vRoUk8s
+
 ![170301163620-roborace-barcelonas-media-daniel-simon-02-large-super-169](https://user-images.githubusercontent.com/15652565/27119802-9e932a5e-5124-11e7-87b4-cb7915b15468.jpg)
 
 Like this car pictured but much smaller and much prettier. Probably less intelligent too. Slightly slower as well I'm guessing.
