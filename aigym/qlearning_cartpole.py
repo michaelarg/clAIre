@@ -19,12 +19,19 @@ x_pos_max = env.observation_space.high[0]
 x_pos_min = env.observation_space.low[0]
 
 #discretize continuous values to discrete buckets
-x_pos = pd.cut([-2.4, 2.4], bins=2, retbins=True, right = False)[1]
-pole_angle = pd.cut([pole_angle_min, pole_angle_max], bins=9, retbins=True, right = False)[1]
-angle_vel = pd.cut([angle_vel_min, angle_vel_max], bins=2, retbins=True, right = False)[1]
+#x_pos = pd.cut([-2.4, 2.4], bins=1, retbins=True, right = False)[1]
+#pole_angle = pd.cut([-.3, .3], bins=10, retbins=True, right = False)[1]
+#angle_vel = pd.cut([-2, 2], bins=1, retbins=True, right = False)[1]
+#q = np.zeros([3 ,12,3, 2])
 
-q = np.zeros([3 , 10,3, 2])
+x_pos = pd.cut([-2.4, 2.4], bins=4, retbins=True, right = False)[1]
+x_vel = pd.cut([-1, 1], bins=2, retbins=True, right = False)[1]
+pole_angle = pd.cut([-1, 1], bins=18 , retbins=True, right = False)[1]
+angle_vel = pd.cut([-3.5, 3.5], bins=2, retbins=True, right = False)[1]
 
+q = np.zeros([6 ,4, 20 ,4 , 2])
+
+#print q[2,6,2,1]
 #Q-Learning Parameters
 learning_rate = 0.1
 start_explore = 1 
@@ -38,6 +45,7 @@ solved_t = 199
 solved_num  = 0
 solved_max = 100
 
+DEBUG = False
     
 def main():
     solved_count = 0
@@ -48,31 +56,64 @@ def main():
     solved_num = 0
     explore_rate = start_explore
 
+    fig = plt.gcf()
+    fig.show()
+    fig.canvas.draw()
     plt.axis([0, 1000, 0, 200])
-    plt.ion()
+
 
  
     for ep in range(ep_num):
         obv = env.reset()
-        in_state = get_ob_to_ind(obv)
-
+        in_stateone  , in_statetwo , in_statethree, in_statefour = get_ob_to_ind(obv)
+   
         for t in range(max_t):
-            obv = env.render()
-
+            env.render()
             explore_rate *= explore_decay
             explore_rate = max(explore_rate, explore_rate_min)
-            action = select_action(in_state, explore_rate)
-            obv, reward , done, info = env.step(action)
-            state = get_ob_to_ind(obv)
-            best_q = np.amax(q[  int((state)[0]) ,  int((state)[1]) , int((state)[2])   ])
 
-           #update q table with reward from this the previous action
-            q[int((in_state)[0]) ,  int((in_state)[1]), int((in_state)[2])][action] += learning_rate * (reward + discount_factor*(best_q) - q[int((in_state)[0]) ,  int((in_state)[1]) , int((in_state)[2]) ][action])
-
-            in_state = state
             
-#           if ep % 1000 == 0:
+            action = select_action(in_stateone, in_statetwo, in_statethree, in_statefour, explore_rate)
+            obv, reward , done, info = env.step(action)
+           # print obv           
+            stateone  , statetwo , statethree , statefour = get_ob_to_ind(obv)
+
+            if DEBUG == True:
+                print obv
+                print "action = " , action
+                print stateone  , statetwo , statethree, statefour
+                print in_stateone, in_statetwo , in_statethree, in_statefour
+
+            try: 
+                best_q = np.amax( q[ stateone  , statetwo  , statethree, statefour]   )
+                
+            except IndexError:
+                print "index error on best_q"
+                print "stateone",stateone
+                print "statetwo",statetwo
+                print "statethre",statethree
+                print "statefour",statefour
+
+            try:
+                q[ in_stateone , in_statetwo  , in_statethree , in_statefour][action] += learning_rate * (reward + discount_factor*(best_q) - q[ in_stateone , in_statetwo  , in_statethree, in_statefour ][action])
+            
+            except IndexError:
+                print "index error on q"
+                print in_stateone
+                print in_statetwo
+                print in_statethree
+                print in_statefour
+
+            in_stateone = stateone
+            in_statetwo = statetwo
+            in_statethree = statethree
+            in_statefour = statefour
+            
+            if ep % 100 == 0:
 #                print q
+                print np.count_nonzero(q)
+               # print q
+                print best_q
             
             if done:
                print("Episode %d finished after %f time steps" % (ep , t))
@@ -83,22 +124,26 @@ def main():
                    solved_num = 0
                break
 
+        if solved_num == solved_max:
+            print "solved!"
+            break
+    
         plt.scatter(ep, t)
-        plt.pause(0.05)
+        fig.canvas.draw() 
 
 def get_ob_to_ind(obv):
     bin0 = np.digitize(obv[0],x_pos)
-    bin1 = np.digitize(obv[2],pole_angle)
-    bin2 = np.digitize(obv[3],angle_vel)
-    q_index =  str(bin0) + str(bin1) + str(bin2)
-    return q_index
+    bin1 = np.digitize(obv[1],x_vel)
+    bin2 = np.digitize(obv[2],pole_angle)
+    bin3 = np.digitize(obv[3],angle_vel)
+    return int(bin0) , int(bin1), int(bin2), int(bin3)
 
-def select_action(state, explore_rate):
+def select_action(stateone, statetwo , statethree,statefour, explore_rate):
     if random.random() < explore_rate: 
         action = env.action_space.sample()
     else:
-         action = np.argmax(     q[int((state)[0]) ,int((state)[1]), int((state)[2])]       )   
-    return action
+         action = np.argmax( q[stateone, statetwo, statethree, statefour] )
+    return int(action)
         
 if __name__ == "__main__":
     main()
