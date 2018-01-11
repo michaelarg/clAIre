@@ -56,12 +56,16 @@ def main():
     solved_num = 0
     explore_rate = start_explore
 
+    
     fig = plt.gcf()
     fig.show()
     fig.canvas.draw()
     plt.axis([0, 1000, 0, 200])
 
-
+    fig = plt.gcf()
+    fig.show()
+    fig.canvas.draw()
+    plt.axis([0, 1000, 0, 2])
  
     for ep in range(ep_num):
         obv = env.reset()
@@ -111,6 +115,7 @@ def main():
             
             if ep % 100 == 0:
 #                print q
+ #               statevisited = np.count_nonzero(q)
                 print np.count_nonzero(q)
                # print q
                 print best_q
@@ -127,8 +132,19 @@ def main():
         if solved_num == solved_max:
             print "solved!"
             break
-    
+
+        plt.figure(1)
+        plt.subplot(211)
+        plt.title("explore rate and q matrix average")
+        plt.scatter(ep, explore_rate)
+        plt.scatter(ep, np.mean(q) , c='g')
+ #       fig.canvas.draw() 
+
+        plt.subplot(212)
+        plt.scatter(ep, np.count_nonzero(q) , c = 'r')
         plt.scatter(ep, t)
+        plt.axis([0, 1000, 0, 200])
+        plt.title("episode reward (blue) number of Q(s,a) unvisited states (red)")
         fig.canvas.draw() 
 
 def get_ob_to_ind(obv):
