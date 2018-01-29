@@ -24,18 +24,18 @@ x_pos_min = env.observation_space.low[0]
 #angle_vel = pd.cut([-2, 2], bins=1, retbins=True, right = False)[1]
 #q = np.zeros([3 ,12,3, 2])
 
-x_pos = pd.cut([-2.4, 2.4], bins=4, retbins=True, right = False)[1]
+x_pos = pd.cut([-2.4, 2.4], bins=6, retbins=True, right = False)[1]
 x_vel = pd.cut([-1, 1], bins=2, retbins=True, right = False)[1]
-pole_angle = pd.cut([-1, 1], bins=18 , retbins=True, right = False)[1]
+pole_angle = pd.cut([-1, 1], bins=6 , retbins=True, right = False)[1]
 angle_vel = pd.cut([-3.5, 3.5], bins=2, retbins=True, right = False)[1]
 
-q = np.zeros([6 ,4, 20 ,4 , 2])
+q = np.zeros([8 ,4, 8 ,4 , 2])
 
 #print q[2,6,2,1]
 #Q-Learning Parameters
 learning_rate = 0.1
 start_explore = 1 
-explore_decay = 0.999
+explore_decay = 0.995
 explore_rate_min = 0.1
 discount_factor = 0.9  
 
@@ -100,7 +100,8 @@ def main():
 
             try:
                 q[ in_stateone , in_statetwo  , in_statethree , in_statefour][action] += learning_rate * (reward + discount_factor*(best_q) - q[ in_stateone , in_statetwo  , in_statethree, in_statefour ][action])
-            
+
+
             except IndexError:
                 print "index error on q"
                 print in_stateone
