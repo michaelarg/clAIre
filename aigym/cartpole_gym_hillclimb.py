@@ -17,12 +17,18 @@ print(env.action_space)
 print(env.observation_space)
 print(env.observation_space.low)
 print(env.observation_space.high)
+
+jh = env.observation_space.high
+jp = env.observation_space.low
+
+print jh[2]
+print jp[2]
 #environment space has x position, x velocity, angle of stick and stick velocity
 
-ep_num = 100
-max_t = 250
+ep_num = 10000
+max_t = 200
 solved_num  = 0
-solved_max = 10
+solved_max = 100
 
 def run_sim(max_t,ep_num , weights, ep):
     solved_num=0
@@ -55,7 +61,7 @@ def main():
     solved_count = 0
     rewardsum = 0
     reward_max = 0
-    rand_scale = 0.8
+    rand_scale = 0.1
     weights =  np.random.uniform(-1,1,4)
 
     
